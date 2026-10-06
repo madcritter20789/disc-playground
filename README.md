@@ -2,6 +2,9 @@
 
 A retro plastic launcher that turns target practice into colorful ricochet art. Aim, hold to charge, and release. Three fixed bumpers reward hits while every shot paints a fading ribbon. There are no rounds to win: the toy is about trying one more shot.
 
+- Live: https://madcritter20789.github.io/disc-playground/
+- Source: https://github.com/madcritter20789/disc-playground
+
 ## Play
 
 - Mouse/pen: aim inside the arena, hold the primary button, release to fire.
@@ -21,7 +24,9 @@ npm run build
 npm run preview
 ```
 
-Vercel: build command `npm run build`, output directory `dist`. `vercel.json` contains this configuration.
+GitHub Pages runs the test and production build before deploying through `.github/workflows/pages.yml`. Relative asset paths also support deployment at a subdirectory.
+
+Vercel remains configured with build command `npm run build` and output directory `dist`. Deployment was attempted, but the signed-in team was blocked by Vercel for exceeding its fair-use limits (HTTP 402); GitHub Pages supplies the live submission instead.
 
 ## Choices
 
@@ -35,7 +40,13 @@ The shaders use bounded resolutions, freeze on pause, and fall back to CSS on un
 
 `npm test` verifies charge bounds, aim, launch direction, wall reflection, maximum-speed bumper collision, separation, distinct hits, retirement, the eight-disc ceiling, and deterministic fixed steps. `npm run build` creates the static submission.
 
-Browser verification and final links are recorded below after deployment. Mobile viewport checks are not a substitute for testing on a physical phone.
+Verified in the Codex in-app Chromium browser: pointer launch, bumper hits, full-power charging, key-repeat guard, pause, reset, Escape/focus cancellation, and the Fire button preserving touch-selected aim. A temporary browser harness exercised normal, simulated reduced-motion, unavailable-WebGL, and actual WebGL-context-loss paths without warning/error logs. The 320px viewport had no horizontal overflow; Fire measured 48px tall and Reset/Pause measured 44px. Production preview passed launch/pause/reset checks.
+
+Sampled during desktop play over 120 animation frames: median interval 8.3ms, p95 approximately 8.5–8.7ms (roughly 120Hz in this browser). This is a local measurement, not a guarantee on other hardware. Physical phones and Safari have not been tested.
+
+## Submission note
+
+I built a small retro disc launcher that makes ricochet art. Hold to charge, release to launch, and watch spinning discs draw temporary ribbons as they bounce off three bumpers. Canvas keeps the interaction direct; Paper Shaders adds a textured arena and a rim that responds to charging and impacts. I focused on the charge/release feel, coherent materials, and a bounded implementation rather than levels or customization. With more time, I would explore movable bumpers, different disc materials, and optional sound.
 
 ## Next explorations
 
