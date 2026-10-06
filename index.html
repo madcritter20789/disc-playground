@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <meta name="description" content="A little launcher. A lot of happy accidents. Aim, charge, and paint with spinning discs." />
+  <title>Disc Playground — a little kinetic toy</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23df634c'/%3E%3Ccircle cx='32' cy='32' r='12' fill='%23f4f0e6'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <main>
+    <header class="masthead"><a class="wordmark" href="./" aria-label="Disc Playground home"><span class="logo-disc"></span> SMALL HOURS <span class="wordmark-light">/ PLAY LAB</span></a><span class="edition">EXPERIMENT № 001</span></header>
+    <section class="intro"><div><p class="eyebrow"><span></span> A LITTLE KINETIC TOY</p><h1>Disc Playground<span class="title-dot">.</span></h1><p class="subtitle">A little launcher. A lot of happy accidents.</p></div><p class="intro-note">No winning. No losing.<br>Just one more shot.</p></section>
+    <section class="toy" aria-label="Disc launcher toy">
+      <div class="toy-top"><div class="toy-name"><span class="tiny-disc"></span> THE RICOCHET MACHINE</div><div class="hit-count"><span id="hits">00</span> <span>BUMPER HITS</span></div></div>
+      <div class="arena" id="arena" tabindex="0" role="group" aria-label="Disc launcher arena" aria-describedby="instructions keyboard-help">
+        <div class="surface shader" id="surface" aria-hidden="true"></div><div class="rim shader" id="rim" aria-hidden="true"></div>
+        <canvas id="game" width="900" height="640" aria-hidden="true"></canvas>
+        <div class="paused-cover" id="paused-cover" hidden><span>Taking a breather.</span><button id="resume">Keep playing ↗</button></div>
+      </div>
+      <div class="toy-bottom"><span id="instructions">Aim. Hold to charge. Release to paint.</span><span class="power-label" id="power-label">READY WHEN YOU ARE</span></div>
+    </section>
+    <div class="controls"><div class="charge-control"><button class="fire" id="fire"><span class="fire-icon">↗</span> <span id="fire-label">Hold to fire</span><span class="button-charge" id="button-charge"></span></button><div class="power-meter" role="meter" aria-label="Launch power" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="power"><i></i></div></div><div class="secondary-controls"><button id="reset"><span aria-hidden="true">↺</span> Reset</button><button id="pause" aria-pressed="false"><span aria-hidden="true">Ⅱ</span> Pause</button></div></div>
+    <footer><p id="keyboard-help"><span class="desktop-help"><kbd>←</kbd> <kbd>→</kbd> aim <span class="help-divider">/</span> hold <kbd>space</kbd> to fire</span><span class="touch-help">Tap the arena to aim. Hold the coral button to fire.</span></p><p>Made for the joy of it. <span class="footer-disc">◉</span></p></footer>
+    <p class="sr-only" role="status" aria-live="polite" id="status"></p>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

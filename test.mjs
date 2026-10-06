@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import { WORLD, BUMPERS, chargeAt, aimAt, makeDisc, stepDisc, addDisc } from './src/physics.js';
+assert.equal(chargeAt(-3), 0); assert.equal(chargeAt(2), 1);
+assert.equal(aimAt(450, 100), -Math.PI / 2);
+assert.ok(aimAt(100, 600) < -Math.PI / 2); assert.ok(aimAt(800, 600) > -Math.PI / 2);
+const launch = makeDisc(-Math.PI / 2, 1);
+assert.ok(Math.abs(launch.vx) < 1e-8 && launch.vy === -850);
+assert.ok(makeDisc(10, 1).vy < 0);
+const wall = { ...launch, x: WORLD.left + 12, y: 400, vx: -850, vy: 0 };
+stepDisc(wall, .05); assert.ok(wall.vx > 0 && wall.x > WORLD.left + wall.radius);
+const bumper = { ...launch, x: 225, y: 270, vx: 0, vy: -850 };
+let impacts = 0;
+stepDisc(bumper, .2, BUMPERS, hit => { if (hit.bumper >= 0) impacts++; });
+assert.equal(impacts, 1); assert.equal(bumper.hits, 1); assert.ok(bumper.vy > 0);
+assert.ok(Math.hypot(bumper.x - 225, bumper.y - 180) >= 45);
+stepDisc(bumper, 1 / 120, BUMPERS, () => impacts++); assert.equal(impacts, 1);
+assert.equal(stepDisc({ ...launch, age: 4.999 }, .01), false);
+const discs = []; for (let i = 0; i < 10; i++) addDisc(discs, makeDisc(-Math.PI / 2, 1, undefined, i));
+assert.equal(discs.length, 8); assert.equal(discs[0].id, 2);
+const a = makeDisc(-1.3, .7), b = makeDisc(-1.3, .7);
+for (let i = 0; i < 120; i++) stepDisc(a, 1 / 120);
+for (let i = 0; i < 60; i++) { stepDisc(b, 1 / 120); stepDisc(b, 1 / 120); }
+assert.equal(a.x, b.x); assert.equal(a.y, b.y);
+console.log('Physics checks passed: charging, aiming, swept collisions, separation, hits, retirement, and fixed steps.');
